@@ -32,7 +32,7 @@ const useAddBookmark = ({ category }: AddBookmarkProps) => {
 	const [title, setTitle] = useState<string>("");
 
 	const { isError: isBookmarkError } = useGETBookmarkTitleQuery({
-		memberId: 112,
+		memberId: user?.code ?? "",
 		url,
 		setTitle
 	});
