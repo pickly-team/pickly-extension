@@ -1,0 +1,65 @@
+import useToast from "@src/ui/toast/useToast";
+import client, { CustomAxiosError, ErrorTypes } from "@src/utils/client";
+import { useQuery } from "@tanstack/react-query";
+
+type GETBookmarkTitleResponse = string;
+
+interface GetBookmarkTitleRequest {
+	memberId: number;
+	url: string;
+}
+
+const getBookmarkTitleAPI = async ({
+	memberId,
+	url
+}: GetBookmarkTitleRequest) => {
+	const { data } = await client<GETBookmarkTitleResponse>({
+		method: "get",
+		url: `/members/${memberId}/bookmark/title`,
+		params: { memberId, url },
+		data: {}
+	});
+	return data;
+};
+
+const GET_BOOKMARK_TITLE = (url: string) => ["GET_BOOKMARK_TITLE", url];
+
+interface GETBookmarkTitleQuery {
+	memberId: number;
+	url: string;
+	setTitle: (title: string) => void;
+}
+
+export const useGETBookmarkTitleQuery = ({
+	memberId,
+	url,
+	setTitle
+}: GETBookmarkTitleQuery) => {
+	const { fireToast } = useToast();
+	return useQuery(
+		GET_BOOKMARK_TITLE(url),
+		() => getBookmarkTitleAPI({ memberId, url }),
+		{
+			enabled: !!url.length,
+			retry: 0,
+			staleTime: 1000 * 60 * 60 * 24,
+			cacheTime: 1000 * 60 * 60 * 24,
+			onSuccess: (data) => {
+				setTitle && setTitle(data);
+			},
+			onError: (e: CustomAxiosError) => {
+				if (e.response?.data.code === ErrorTypes.PRIVATE_BOOKMARK) {
+					fireToast({
+						message: "앗! 비공개 북마크는 공유할 수 없어요",
+						mode: "ERROR"
+					});
+				} else {
+					fireToast({
+						message: "앗! 유효하지 않은 주소에요",
+						mode: "ERROR"
+					});
+				}
+			}
+		}
+	);
+};
