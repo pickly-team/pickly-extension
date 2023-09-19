@@ -15,8 +15,8 @@ const getBookmarkTitleAPI = async ({
 }: GetBookmarkTitleRequest) => {
 	const { data } = await client<GETBookmarkTitleResponse>({
 		method: "get",
-		url: `${`/members/${encodeURI(memberId)}/bookmark/title/chrome-extension`}`,
-		params: { url },
+		url: `${`/members/bookmark/title/chrome-extension`}`,
+		params: { url, memberId },
 		data: {}
 	});
 	return data;
