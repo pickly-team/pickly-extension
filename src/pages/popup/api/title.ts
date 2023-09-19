@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 type GETBookmarkTitleResponse = string;
 
 interface GetBookmarkTitleRequest {
-	memberId: number;
+	memberId: string;
 	url: string;
 }
 
@@ -15,8 +15,8 @@ const getBookmarkTitleAPI = async ({
 }: GetBookmarkTitleRequest) => {
 	const { data } = await client<GETBookmarkTitleResponse>({
 		method: "get",
-		url: `/members/${memberId}/bookmark/title`,
-		params: { memberId, url },
+		url: `${`/members/${encodeURI(memberId)}/bookmark/title/chrome-extension`}`,
+		params: { url },
 		data: {}
 	});
 	return data;
@@ -25,7 +25,7 @@ const getBookmarkTitleAPI = async ({
 const GET_BOOKMARK_TITLE = (url: string) => ["GET_BOOKMARK_TITLE", url];
 
 interface GETBookmarkTitleQuery {
-	memberId: number;
+	memberId: string;
 	url: string;
 	setTitle: (title: string) => void;
 }
@@ -40,7 +40,7 @@ export const useGETBookmarkTitleQuery = ({
 		GET_BOOKMARK_TITLE(url),
 		() => getBookmarkTitleAPI({ memberId, url }),
 		{
-			enabled: !!url.length,
+			enabled: !!url.length && !!memberId.length,
 			retry: 0,
 			staleTime: 1000 * 60 * 60 * 24,
 			cacheTime: 1000 * 60 * 60 * 24,

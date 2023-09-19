@@ -18,15 +18,38 @@ import useBottomSheet from "@src/ui/BottomSheet/useBottomSheet";
 import { resetMemberCode } from "../auth/store/auth";
 import useToast from "@src/ui/toast/useToast";
 import { useNavigate } from "react-router-dom";
+import useBottomIntersection from "@src/hooks/useBottomIntersection";
+import { useEffect, useRef, useState } from "react";
 
 const BookmarkPage = () => {
 	const { user } = useAuthContext();
 
-	const { data: categoryList } = useGETCategoryListQuery({
+	const {
+		data: categoryList,
+		fetchNextPage,
+		isFetchingNextPage
+	} = useGETCategoryListQuery({
 		memberId: user?.code ?? ""
 	});
 
 	const flatCategoryList = categoryList?.pages.flatMap((page) => page.contents);
+
+	const bottomWrapper = useRef<HTMLDivElement>(null);
+	const [loadedElement, setLoadedElement] = useState<HTMLElement | null>(null);
+	const [portalOn, setPortalOn] = useState(false);
+
+	useEffect(() => {
+		setLoadedElement(bottomWrapper.current);
+		if (portalOn) {
+			setPortalOn(false);
+		}
+	}, [bottomWrapper, portalOn]);
+
+	const { bottom } = useBottomIntersection({
+		fetchNextPage,
+		rootElement: loadedElement,
+		enabled: !isFetchingNextPage
+	});
 
 	const {
 		url,
@@ -103,25 +126,32 @@ const BookmarkPage = () => {
 				<TriggerBottomSheet>
 					<TriggerBottomSheet.Trigger
 						as={
-							<BottomSheetTrigger onClick={() => {}}>
+							<BottomSheetTrigger
+								onClick={() => {
+									setPortalOn(true);
+								}}
+							>
 								<Text.Span fontSize={0.9}>{selectedCategory.item}</Text.Span>
 							</BottomSheetTrigger>
 						}
 					/>
 					<TriggerBottomSheet.BottomSheet>
-						{flatCategoryList?.map((category) => (
-							<TriggerBottomSheet.Item
-								onClick={() => {
-									onChangeCategory(
-										category.categoryId,
-										`${category.emoji} ${category.name}`
-									);
-								}}
-								key={category.categoryId}
-							>
-								{category.emoji + " " + category.name}
-							</TriggerBottomSheet.Item>
-						))}
+						<CategoryWrapper ref={bottomWrapper}>
+							{flatCategoryList?.map((category) => (
+								<TriggerBottomSheet.Item
+									onClick={() => {
+										onChangeCategory(
+											category.categoryId,
+											`${category.emoji} ${category.name}`
+										);
+									}}
+									key={category.categoryId}
+								>
+									{category.emoji + " " + category.name}
+								</TriggerBottomSheet.Item>
+							))}
+							<div ref={bottom} />
+						</CategoryWrapper>
 					</TriggerBottomSheet.BottomSheet>
 				</TriggerBottomSheet>
 			</ContentWrapper>
@@ -244,4 +274,9 @@ const ButtonWrapper = styled.div`
 	width: 100%;
 	margin: 2rem 0;
 	padding: 0 1.3rem;
+`;
+
+const CategoryWrapper = styled.div`
+	max-height: 70vh;
+	overflow: auto;
 `;

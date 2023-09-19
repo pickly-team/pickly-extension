@@ -56,7 +56,7 @@ export const useGETCategoryListQuery = (
 				...params,
 				pageRequest: {
 					cursorId: pageParam,
-					pageSize: params.pageRequest?.pageSize ?? 10
+					pageSize: params.pageRequest?.pageSize ?? 15
 				}
 			});
 			return {
