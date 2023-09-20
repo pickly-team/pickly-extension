@@ -10,9 +10,6 @@ import Text from "@src/ui/Text";
 import useAddBookmark from "../hooks/useAddBookmark";
 import Button from "@src/ui/Button";
 import useGetHref from "../hooks/useGetHref";
-import { IoMdClose as CloseIcon } from "react-icons/io";
-import IconButton from "@src/ui/IconButton";
-import { RiLogoutBoxLine as LogoutIcon } from "react-icons/ri";
 import BSConfirmation from "@src/ui/BottomSheet/BSConfirmation";
 import useBottomSheet from "@src/ui/BottomSheet/useBottomSheet";
 import { resetMemberCode } from "../auth/store/auth";
@@ -89,12 +86,9 @@ const BookmarkPage = () => {
 				title='북마크 추가하기'
 				rightButton={
 					<HeaderRightButtonWrapper>
-						<IconButton onClick={openLogoutBS}>
-							<LogoutIcon size={24} color={theme.colors.white} />
-						</IconButton>
-						<IconButton onClick={() => window.close()}>
-							<CloseIcon size={24} color={theme.colors.white} />
-						</IconButton>
+						<Button onClick={openLogoutBS} height={2} buttonColor='darkPrimary'>
+							<ButtonText fontSize={0.8}>로그아웃</ButtonText>
+						</Button>
 					</HeaderRightButtonWrapper>
 				}
 			/>
@@ -279,4 +273,8 @@ const ButtonWrapper = styled.div`
 const CategoryWrapper = styled.div`
 	max-height: 70vh;
 	overflow: auto;
+`;
+
+const ButtonText = styled(Text.Span)`
+	padding: 1rem;
 `;
