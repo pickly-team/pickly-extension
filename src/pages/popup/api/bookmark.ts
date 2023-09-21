@@ -35,7 +35,7 @@ export const usePOSTBookmarkMutation = () => {
 			// 창을 닫는다.
 			setTimeout(() => {
 				window.close();
-			}, 2000);
+			}, 1500);
 		},
 		onError: () => {
 			fireToast({ message: "앗! 추가할 수 없는 북마크에요", mode: "DELETE" });
