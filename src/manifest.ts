@@ -10,7 +10,6 @@ const manifest: Manifest.WebExtensionManifest = {
 		service_worker: "src/pages/background/index.js",
 		type: "module"
 	},
-	host_permissions: ["<all_urls>"],
 	action: {
 		default_popup: "src/pages/popup/index.html",
 		default_icon: "icon-32.png"
@@ -21,7 +20,7 @@ const manifest: Manifest.WebExtensionManifest = {
 		"48": "icon-48.png",
 		"128": "icon-128.png"
 	},
-	permissions: ["storage", "activeTab", "contextMenus", "tabs"],
+	permissions: ["storage", "activeTab", "contextMenus"],
 	content_scripts: [
 		{
 			matches: ["http://*/*", "https://*/*", "<all_urls>"],
