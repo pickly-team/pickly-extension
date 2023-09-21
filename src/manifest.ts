@@ -20,7 +20,7 @@ const manifest: Manifest.WebExtensionManifest = {
 		"48": "icon-48.png",
 		"128": "icon-128.png"
 	},
-	permissions: ["storage", "contextMenus"],
+	permissions: ["storage", "activeTab", "contextMenus"],
 	content_scripts: [
 		{
 			matches: ["http://*/*", "https://*/*", "<all_urls>"],
