@@ -1,10 +1,6 @@
 import client from "@src/utils/client";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-export interface CategoryInfiniteQueryResponse {
-	hasNext: boolean;
-	contents: Category[];
-}
 export interface Category {
 	categoryId: number;
 	name: string;
@@ -14,20 +10,13 @@ export interface Category {
 
 interface GETCategoryListRequest {
 	memberId: string;
-	pageRequest?: {
-		cursorId?: number;
-		pageSize: number;
-	};
 }
 
-const getCategoryListAPI = async ({
-	memberId,
-	pageRequest
-}: GETCategoryListRequest) => {
-	const { data } = await client<CategoryInfiniteQueryResponse>({
+const getCategoryListAPI = async ({ memberId }: GETCategoryListRequest) => {
+	const { data } = await client<Category[]>({
 		method: "get",
-		url: "/categories/chrome-extension",
-		params: { memberId: encodeURI(memberId), ...pageRequest },
+		url: "/members/categories/chrome-extension",
+		params: { memberId: encodeURI(memberId) },
 		data: {}
 	});
 	return data;
@@ -49,32 +38,9 @@ const GET_CATEGORY_LIST = (params: GETCategoryListQueryRequest) => [
 export const useGETCategoryListQuery = (
 	params: GETCategoryListQueryRequest
 ) => {
-	return useInfiniteQuery(
-		GET_CATEGORY_LIST(params),
-		async ({ pageParam = null }) => {
-			const { contents, hasNext } = await getCategoryListAPI({
-				...params,
-				pageRequest: {
-					cursorId: pageParam,
-					pageSize: params.pageRequest?.pageSize ?? 15
-				}
-			});
-			return {
-				contents,
-				hasNext
-			};
-		},
-		{
-			getNextPageParam: (lastPage) => {
-				if (lastPage.hasNext) {
-					return lastPage.contents[lastPage.contents.length - 1].categoryId;
-				}
-				return undefined;
-			},
-			refetchOnWindowFocus: false,
-			cacheTime: 1000 * 60 * 5,
-			staleTime: 1000 * 60 * 5,
-			enabled: !!params.memberId.length
-		}
-	);
+	return useQuery(GET_CATEGORY_LIST(params), () => getCategoryListAPI(params), {
+		enabled: !!params.memberId,
+		cacheTime: 5 * 60 * 1000,
+		staleTime: 5 * 60 * 1000
+	});
 };
