@@ -1,5 +1,6 @@
 import { GET_HREF_RESULT } from "@src/pages/content";
 import { useEffect, useState } from "react";
+import { NOT_FOUND_PAGE } from "./useAddBookmark";
 
 interface GetHrefProps {
 	onChangeUrl: (url: string) => void;
@@ -41,6 +42,10 @@ const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
 				checkIfReceiverIsReady(tabs[0].id, (isReady) => {
 					if (isReady) {
 						getHref(tabs[0].id, (data) => {
+							if (data.href === "") {
+								onChangeUrl(NOT_FOUND_PAGE);
+								return;
+							}
 							onChangeUrl(data.href);
 						});
 						setTimeout(() => {
@@ -60,6 +65,10 @@ const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
 					checkIfReceiverIsReady(tab.id, (isReady) => {
 						if (isReady) {
 							getHref(tab?.id, (data) => {
+								if (data.href === "") {
+									onChangeUrl(NOT_FOUND_PAGE);
+									return;
+								}
 								onChangeUrl(data.href);
 							});
 							setTimeout(() => {

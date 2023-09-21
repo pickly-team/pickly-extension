@@ -1,6 +1,7 @@
 import useToast from "@src/ui/toast/useToast";
 import client, { CustomAxiosError, ErrorTypes } from "@src/utils/client";
 import { useQuery } from "@tanstack/react-query";
+import { NOT_FOUND_PAGE } from "../hooks/useAddBookmark";
 
 type GETBookmarkTitleResponse = string;
 
@@ -40,7 +41,7 @@ export const useGETBookmarkTitleQuery = ({
 		GET_BOOKMARK_TITLE(url),
 		() => getBookmarkTitleAPI({ memberId, url }),
 		{
-			enabled: !!url.length && !!memberId.length,
+			enabled: !!url.length && !!memberId.length && url !== NOT_FOUND_PAGE,
 			retry: 0,
 			staleTime: 1000 * 60 * 60 * 24,
 			cacheTime: 1000 * 60 * 60 * 24,

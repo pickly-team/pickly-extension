@@ -15,37 +15,17 @@ import useBottomSheet from "@src/ui/BottomSheet/useBottomSheet";
 import { resetMemberCode } from "../auth/store/auth";
 import useToast from "@src/ui/toast/useToast";
 import { useNavigate } from "react-router-dom";
-import useBottomIntersection from "@src/hooks/useBottomIntersection";
-import { useEffect, useRef, useState } from "react";
+import { Oval } from "react-loader-spinner";
+import getRem from "@src/utils/getRem";
+import IconButton from "@src/ui/IconButton";
+import { css } from "@emotion/react";
+import { AiOutlineClose as CloseIcon } from "react-icons/ai";
 
 const BookmarkPage = () => {
 	const { user } = useAuthContext();
 
-	const {
-		data: categoryList,
-		fetchNextPage,
-		isFetchingNextPage
-	} = useGETCategoryListQuery({
+	const { data: categoryList } = useGETCategoryListQuery({
 		memberId: user?.code ?? ""
-	});
-
-	const flatCategoryList = categoryList?.pages.flatMap((page) => page.contents);
-
-	const bottomWrapper = useRef<HTMLDivElement>(null);
-	const [loadedElement, setLoadedElement] = useState<HTMLElement | null>(null);
-	const [portalOn, setPortalOn] = useState(false);
-
-	useEffect(() => {
-		setLoadedElement(bottomWrapper.current);
-		if (portalOn) {
-			setPortalOn(false);
-		}
-	}, [bottomWrapper, portalOn]);
-
-	const { bottom } = useBottomIntersection({
-		fetchNextPage,
-		rootElement: loadedElement,
-		enabled: !isFetchingNextPage
 	});
 
 	const {
@@ -55,12 +35,14 @@ const BookmarkPage = () => {
 		visibilityList,
 		selectedVisibility,
 		isBookmarkError,
+		isLoadingGetTitle,
+		isPostEnabled,
 		onChangeUrl,
 		onChangeTitle,
 		onChangeCategory,
 		onChangeVisibility,
 		onClickPostBookmark
-	} = useAddBookmark({ category: flatCategoryList });
+	} = useAddBookmark({ category: categoryList });
 
 	useGetHref({ onChangeUrl });
 
@@ -105,12 +87,41 @@ const BookmarkPage = () => {
 					제목
 				</Title>
 				<InputWrapper>
-					<Input
-						value={title}
-						onChange={onChangeTitle}
-						height={3}
-						placeholder='제목을 입력하세요.'
-					/>
+					<StyledInputCloseWrapper>
+						{isLoadingGetTitle ? (
+							<StyledLoadingInput>
+								<Oval
+									height={25}
+									width={25}
+									color={theme.colors.lightPrimary}
+									visible={true}
+									ariaLabel='oval-loading'
+									secondaryColor={theme.colors.lightPrimary}
+									strokeWidth={4}
+									strokeWidthSecondary={4}
+								/>
+							</StyledLoadingInput>
+						) : (
+							<>
+								<StyledInput
+									css={css`
+										transition: all 0.5s ease-in-out;
+									`}
+									value={title}
+									onChange={(e) => onChangeTitle(e.target.value)}
+									maxLength={100}
+									height={3}
+								/>
+								<FixedIconWrapper>
+									{!!title.length && (
+										<IconButton onClick={() => onChangeTitle("")}>
+											<CloseIcon size={20} />
+										</IconButton>
+									)}
+								</FixedIconWrapper>
+							</>
+						)}
+					</StyledInputCloseWrapper>
 				</InputWrapper>
 			</ContentWrapper>
 			<ContentWrapper>
@@ -120,18 +131,14 @@ const BookmarkPage = () => {
 				<TriggerBottomSheet>
 					<TriggerBottomSheet.Trigger
 						as={
-							<BottomSheetTrigger
-								onClick={() => {
-									setPortalOn(true);
-								}}
-							>
+							<BottomSheetTrigger onClick={() => {}}>
 								<Text.Span fontSize={0.9}>{selectedCategory.item}</Text.Span>
 							</BottomSheetTrigger>
 						}
 					/>
 					<TriggerBottomSheet.BottomSheet>
-						<CategoryWrapper ref={bottomWrapper}>
-							{flatCategoryList?.map((category) => (
+						<CategoryWrapper>
+							{categoryList?.map((category) => (
 								<TriggerBottomSheet.Item
 									onClick={() => {
 										onChangeCategory(
@@ -144,7 +151,6 @@ const BookmarkPage = () => {
 									{category.emoji + " " + category.name}
 								</TriggerBottomSheet.Item>
 							))}
-							<div ref={bottom} />
 						</CategoryWrapper>
 					</TriggerBottomSheet.BottomSheet>
 				</TriggerBottomSheet>
@@ -176,7 +182,10 @@ const BookmarkPage = () => {
 				</TriggerBottomSheet>
 			</ContentWrapper>
 			<ButtonWrapper>
-				<Button onClick={onClickPostBookmark} disabled={isBookmarkError}>
+				<Button
+					onClick={onClickPostBookmark}
+					disabled={isBookmarkError || !isPostEnabled}
+				>
 					<Text.Span>추가하기</Text.Span>
 				</Button>
 			</ButtonWrapper>
@@ -277,4 +286,32 @@ const CategoryWrapper = styled.div`
 
 const ButtonText = styled(Text.Span)`
 	padding: 1rem;
+`;
+
+const StyledInputCloseWrapper = styled.div`
+	width: 100%;
+	position: relative;
+`;
+
+const StyledInput = styled(Input)`
+	padding-right: ${getRem(40)};
+`;
+
+const FixedIconWrapper = styled.div`
+	position: absolute;
+	top: ${getRem(5)};
+	right: ${getRem(12)};
+`;
+
+const StyledLoadingInput = styled.div`
+	display: flex;
+	height: 3rem;
+	width: 100%;
+	background-color: ${theme.colors.grey900};
+	border-color: ${theme.colors.grey700};
+	border-width: ${getRem(30)};
+	border-radius: ${getRem(10)};
+
+	align-items: center;
+	justify-content: center;
 `;
