@@ -17,13 +17,15 @@ export const TEMP_VISIBILITY: Record<ClientVisibility, Visibility> = {
 	"👥 친구 공개": "SCOPE_FRIEND"
 };
 
+export const NOT_FOUND_PAGE = "공유할 수 없는 페이지입니다.";
+
 interface AddBookmarkProps {
 	category?: Category[];
 }
 
 const useAddBookmark = ({ category }: AddBookmarkProps) => {
 	const { user } = useAuthContext();
-	const [url, setUrl] = useState<string>("");
+	const [url, setUrl] = useState<string>(NOT_FOUND_PAGE);
 
 	const onChangeUrl = (url: string) => {
 		setUrl(url);
@@ -31,14 +33,15 @@ const useAddBookmark = ({ category }: AddBookmarkProps) => {
 
 	const [title, setTitle] = useState<string>("");
 
-	const { isError: isBookmarkError } = useGETBookmarkTitleQuery({
-		memberId: user?.code ?? "",
-		url,
-		setTitle
-	});
+	const { isError: isBookmarkError, isFetching: isLoadingGetTitle } =
+		useGETBookmarkTitleQuery({
+			memberId: user?.code ?? "",
+			url,
+			setTitle
+		});
 
-	const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-		setTitle(e.target.value);
+	const onChangeTitle = (title: string) => {
+		setTitle(title);
 	};
 	// 1. 카테고리 선택
 	const [selectedCategory, setSelectedCategory] = useState<SelectedCategory>({
@@ -84,6 +87,14 @@ const useAddBookmark = ({ category }: AddBookmarkProps) => {
 		}
 	};
 
+	const isPostEnabled = useMemo(() => {
+		return (
+			url !== NOT_FOUND_PAGE &&
+			title.length > 0 &&
+			selectedCategory.categoryId !== -1
+		);
+	}, [url, title, selectedCategory]);
+
 	return {
 		url,
 		title,
@@ -91,6 +102,8 @@ const useAddBookmark = ({ category }: AddBookmarkProps) => {
 		visibilityList,
 		selectedVisibility,
 		isBookmarkError,
+		isLoadingGetTitle,
+		isPostEnabled,
 		onChangeUrl,
 		onChangeTitle,
 		onChangeCategory,
