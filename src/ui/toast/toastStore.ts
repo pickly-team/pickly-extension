@@ -22,7 +22,8 @@ export type ToastMessage =
 	| "북마크가 추가되었어요"
 	| "로그아웃 되었습니다"
 	| "인증 되었습니다"
-	| "앗! 인증에 실패했어요";
+	| "앗! 인증에 실패했어요"
+	| "현재 페이지의 북마크를 가져올 수 없어요 🥲 \n 페이지를 새로고침 해보세요";
 
 export type ToastMode = "SUCCESS" | "DELETE" | "ERROR";
 
