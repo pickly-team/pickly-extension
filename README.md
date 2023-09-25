@@ -1,126 +1,112 @@
-<div align="center">
-<img src="public/icon-128.png" alt="logo"/>
-<h1> Chrome Extension Boilerplate with<br/>React + Vite + TypeScript + TailwindCSS</h1>
+<div align=center>
+  <img width="150" alt="store icon" src="https://github.com/pickly-team/pickly-backend/assets/38103085/c45c3275-60f4-4c36-a15c-d587576aede0">
+  <h2> 즐겨찾기 아카이빙 서비스, 피클리 </h2>
+  <br>
+  <strong>피클리</strong>는 웹 서핑을 하다가 발견한 마음에 드는 아티클이 있다면 바로 북마크에 저장해주는 서비스에요!
+  <br>
+  피클리가 보내주는 알림과 함께 북마크를 잊지말고 챙겨봅시다! 😋
+  <br>
+  <br>
 
-<h2>
-This is a side product of my Chrome Extension <a target="_blank" rel="noopener noreferrer" href="https://chrome.google.com/webstore/detail/supatabs/icbcnjlaegndjabnjbaeihnnmidbfigk">Supatabs</a>.
-Supatabs is a 🔥🔥 BLAZINGLY FAST 🔥🔥 free alternative to OneTab with support for chrome tab groups and searching through tabs.
-</h2>
+[![App Store](https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white)](https://apps.apple.com/kr/app/pickly/id6450514861) [![Play Store](https://img.shields.io/badge/Google_Play-414141?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.ww8007.pickly)
 
-<h2>
-If you tend to have thousands of tabs open, are a OneTab user, or use any other tab manager 
-make sure to check it out <a target="_blank" rel="noopener noreferrer" href="https://chrome.google.com/webstore/detail/supatabs/icbcnjlaegndjabnjbaeihnnmidbfigk">here</a>!
-</h2>
+[![서비스_이용_가이드](http://img.shields.io/badge/-서비스_이용_가이드-81B441?style=flat&logo=Pinboard&logoColor=white)](https://github.com/pickly-team/pickly-frontend/wiki/%ED%94%BC%ED%81%B4%EB%A6%AC-%EC%82%AC%EC%9A%A9-%EA%B0%80%EC%9D%B4%EB%93%9C) [![Storybook](http://img.shields.io/badge/Storybook-ff4685?style=flat&logo=Storybook&logoColor=white)](https://64041bd03de4f07060a931b9-emnknzovqf.chromatic.com/?path=/story/iconography--page) [![API Docs](http://img.shields.io/badge/-API%20Docs-84ea2c?style=flat&logo=swagger&logoColor=white&link=)]()
+
+<br>
+
 </div>
 
-## Table of Contents
+## 🧑‍💻 팀원 소개
 
-- [Intro](#intro)
-- [Why another boilerplate?](#why)
-- [Features](#features)
-- [Usage](#usage)
-  - [Setup](#setup) 
-- [Tech Docs](#tech)
-- [Credit](#credit)
-- [Contributing](#contributing)
+<div align=center>
 
+|      신은지      |      장동현      |      김의빈      |      이승준      |      김서연      |      정수빈      |      김서경      |
+| :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
+| <a href="https://github.com/EunjiShin"> <img src="https://avatars.githubusercontent.com/EunjiShin" width=100px alt="_"/> </a> | <a href="https://github.com/ww8007"> <img src="https://avatars.githubusercontent.com/ww8007" width=100px alt="_"/> </a> | <a href="https://github.com/JoeCP17"> <img src="https://avatars.githubusercontent.com/JoeCP17" width=100px alt="_"/> </a> | <a href="https://github.com/litsynp"> <img src="https://avatars.githubusercontent.com/litsynp" width=100px alt="_"/> </a> | <a href="https://github.com/aeong98"> <img src="https://avatars.githubusercontent.com/aeong98" width=100px alt="_"/> </a> | <a href="https://github.com/SoobinJung1013"> <img src="https://avatars.githubusercontent.com/SoobinJung1013" width=100px alt="_"/> </a> | <a href="https://github.com/JerryK026"> <img src="https://avatars.githubusercontent.com/JerryK026" width=100px alt="_"/> </a> |
+| BE, FE | BE, FE | BE, FE | BE, FE | BE, FE | BE, FE | BE |
 
-## Intro <a name="intro"></a>
-This boilerplate is meant to be a quick start for creating chrome extensions using React, Typescript and Tailwind CSS.
+</div>
 
-Built for:
-> For improved DX and rapid building vite and nodemon are used.
+## 🗺️ 시스템 아키텍처
 
-> Chrome does not accept manifest v2 extensions since Jan 2022, therefore this template uses manifest v3.
+<div align=center>
+<img src="https://github.com/pickly-team/.github/assets/54137044/30b4d5da-a9de-4da0-a70f-32ecce21e8e2" />
+</div>
 
-> Firefox + other browsers don't yet support manifest v3, so cross browser usage is not encouraged.
+## 🌱 프론트엔드 기술 스택
 
-* Read more about Chrome manifest v2 support [here](https://developer.chrome.com/docs/extensions/mv2/).
-* Read more about Firefox Manifest v3 support [here](https://discourse.mozilla.org/t/manifest-v3/94564).
+<div align=center>
 
-As soon as Firefox supports manifest v3, support will be added in this repo as well.
+<div style="display: inline-block;">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
+  <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white" />
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=Android&logoColor=white" />
+  <img src="https://img.shields.io/badge/ios-000000?style=for-the-badge&logo=ios&logoColor=white" />
+</div>
 
-Oh by the way ... I also implemented a chrome local/sync storage hook for react, which works well with this 
-template. [Check it out here](https://gist.github.com/JohnBra/c81451ea7bc9e77f8021beb4f198ab96).
-## Why another boilerplate? <a name="why"></a>
-I have used webpack react boilerplates and found it too hard to configure.
+<div style="display: inline-block;">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Emotion-DB7093?style=for-the-badge&logo=emotion&logoColor=white" />
+  <img src="https://img.shields.io/badge/Zustand-FFFFFF?style=for-the-badge&logo=zustand&logoColor=black" />
+  <img src="https://img.shields.io/badge/React_Query-FF0000?style=for-the-badge&logo=react-query&logoColor=white" />
+  <img src="https://img.shields.io/badge/axios-FFFFFF?style=for-the-badge&logo=axios&logoColor=black" />
+</div>
 
-Vite is actually mega easy to understand, which makes it easier to get into and to maintain for others.
+<div style="display: inline-block;">
+  <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" />
+  <img src="https://img.shields.io/badge/Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white" />
+  <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white" />
+  <img src="https://img.shields.io/badge/Prettier-1A2B34?style=for-the-badge&logo=prettier&logoColor=white" />
+</div>
 
-I couldn't find a boilerplate for React, TypeScript and Tailwind CSS. So here it is.
+</div>
 
-## Features <a name="features"></a>
-- [React 18](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite](https://vitejs.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [ESLint](https://eslint.org/)
-- [Chrome Extension Manifest Version 3](https://developer.chrome.com/docs/extensions/mv3/intro/)
+## 🌱 백엔드 기술 스택 
 
-## Usage <a name="usage"></a>
+<div align=center>
+  
+<div style="display: inline-block;">
+  <img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=java&logoColor=white">
+  <img src="https://img.shields.io/badge/Springboot-6DB33F?style=for-the-badge&logo=Springboot&logoColor=white">
+  <img src="https://img.shields.io/badge/Spring JPA-000000?style=for-the-badge&logo=cachet&logoColor=white">
+  <img src="https://img.shields.io/badge/queryDSL-000000?style=for-the-badge&logo=cachet&logoColor=white">
+  <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
+</div>
 
-### Setup <a name="setup"></a>
-1. Clone this repository.
-2. Change `name` and `description` in package.json => **Auto synchronize with manifest** 
-3. Run `yarn` or `npm i` (check your node version >= 16)
-4. Run `yarn dev` or `npm run dev`
-5. Load Extension on Chrome
-   1. Open - Chrome browser
-   2. Access - chrome://extensions
-   3. Check - Developer mode
-   4. Find - Load unpacked extension
-   5. Select - `dist` folder in this project (after dev or build)
-6. If you want to build in production, Just run `yarn build` or `npm run build`.
+<div style="display: inline-block;">
+  <img src="https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white">
+  <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+  <img src="https://img.shields.io/badge/spock-4479A1?style=for-the-badge&logo=codedeploy&logoColor=white">
+  <img src="https://img.shields.io/badge/apachegroovy-4298B8?style=for-the-badge&logo=apachegroovy&logoColor=white">
+  <img src="https://img.shields.io/badge/jsoup-8BC0D0?style=for-the-badge&logo=pinboard&logoColor=white">
+</div>
 
-### Customization
-As the template has **all** of the potential Chrome extension pages implemented, you likely have to 
-customize it to fit your needs.
+<div style="display: inline-block;">
+  <img src="https://img.shields.io/badge/prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white">
+  <img src="https://img.shields.io/badge/grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white">
+  <img src="https://img.shields.io/badge/jmeter-D22128?style=for-the-badge&logo=apachejmeter&logoColor=white">
+</div>
 
-E.g. you don't want the newtab page to activate whenever you open a new tab:
-1. remove the directory `newtab` and its contents in `src/pages`
-2. remove `chrome_url_overrides: { newtab: 'src/pages/newtab/index.html' },` in `src/manifest.ts`
-3. remove the `newtab` rollup input in the `vite.config.ts`
+<br>
 
-```ts
-//...
-build: {
-    outDir,
-    rollupOptions: {
-      input: {
-        devtools: resolve(pagesDir, 'devtools', 'index.html'),
-        panel: resolve(pagesDir, 'panel', 'index.html'),
-        background: resolve(pagesDir, 'background', 'index.ts'),
-        popup: resolve(pagesDir, 'popup', 'index.html'),
-        newtab: resolve(pagesDir, 'newtab', 'index.html'),  // <--- REMOVE THIS LINE
-        options: resolve(pagesDir, 'options', 'index.html'),
-      },
-      output: {
-        entryFileNames: (chunk) => `src/pages/${chunk.name}/index.js`,
-      },
-    },
-  },
-/...
-```
+</div>
 
-CSS files in the `src/pages/*` directories are not necessary. They are left in there in case you want 
-to use it in combination with Tailwind CSS. **Feel free to delete them**.
+## 🌱 인프라 & 공통 기술 스택 
 
-Tailwind can be configured as usual in the `tailwind.config.cjs` file. See doc link below.
+<div align=center>
 
-Note:
-content script bundler is added in ```./utils/plugins/build-content-script.ts``` as a custom plugin.
-https://github.com/JohnBra/vite-web-extension/issues/8
+<div style="display: inline-block;">
+  <img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white">
+  <img src="https://img.shields.io/badge/firebase cloud messaging-DCBD62?style=for-the-badge&logo=firebase&logoColor=white">
+  <img src="https://img.shields.io/badge/firebase auth-CEA220?style=for-the-badge&logo=firebase&logoColor=white">
+</div>
 
-# Tech Docs <a name="tech"></a>
-- [Vite Plugin](https://vitejs.dev/guide/api-plugin.html)
-- [Chrome Extension with manifest 3](https://developer.chrome.com/docs/extensions/mv3/)
-- [Rollup](https://rollupjs.org/guide/en/)
-- [Rollup-plugin-chrome-extension](https://www.extend-chrome.dev/rollup-plugin)
-- [Tailwind CSS](https://tailwindcss.com/docs/configuration)
+<div style="display: inline-block;">
+  <img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=AmazonAWS&logoColor=white">
+  <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white"> 
+  <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
+</div>
 
-# Credit <a name="credit"></a>
-Heavily inspired by [Jonghakseo's vite chrome extension boilerplate](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite). 
-It uses SASS instead of TailwindCSS if you want to check it out.
-
-# Contributing <a name="contributing"></a>
-Feel free to open PRs or raise issues!
+</div>
