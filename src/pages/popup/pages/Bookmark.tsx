@@ -2,7 +2,7 @@
 import styled from "@emotion/styled";
 import { theme } from "@src/utils/theme";
 import useAuthContext from "../hooks/useAuthContext";
-import { useGETCategoryListQuery } from "../api/category";
+import { GET_CATEGORY_LIST, useGETCategoryListQuery } from "../api/category";
 import TriggerBottomSheet from "@src/ui/BottomSheet/TriggerBottomSheet";
 import Header from "@src/ui/Header";
 import Input from "@src/ui/Input";
@@ -20,6 +20,8 @@ import getRem from "@src/utils/getRem";
 import IconButton from "@src/ui/IconButton";
 import { css } from "@emotion/react";
 import { AiOutlineClose as CloseIcon } from "react-icons/ai";
+import { useQueryClient } from "@tanstack/react-query";
+import { GET_BOOKMARK_TITLE } from "../api/title";
 
 const BookmarkPage = () => {
 	const { user } = useAuthContext();
@@ -55,7 +57,10 @@ const BookmarkPage = () => {
 	const navigate = useNavigate();
 
 	const { fireToast } = useToast();
+	const queryClient = useQueryClient();
 	const onClickLogout = () => {
+		queryClient.removeQueries(GET_BOOKMARK_TITLE(url, user?.code ?? ""));
+		queryClient.removeQueries(GET_CATEGORY_LIST(user?.code ?? ""));
 		resetMemberCode();
 		fireToast({ message: "로그아웃 되었습니다" });
 		closeLogoutBS();
