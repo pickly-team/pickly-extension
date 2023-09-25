@@ -3,6 +3,7 @@ import client from "@src/utils/client";
 import { StorageType, createStorage } from "@src/hooks/useStorage";
 import { useNavigate } from "react-router-dom";
 import useToast from "@src/ui/toast/useToast";
+import useAuthContext from "../hooks/useAuthContext";
 
 export type MemberCode = string;
 
@@ -27,10 +28,12 @@ export const useDeleteMemberCodeMutation = () => {
 	const { fireToast } = useToast();
 
 	const router = useNavigate();
+	const { login } = useAuthContext();
 	return useMutation(deleteMemberCodeAPI, {
-		onSuccess: (data) => {
+		onSuccess: async (data) => {
 			fireToast({ message: "인증 되었습니다" });
 			set(data);
+			await login();
 			router("/");
 		},
 		onError: () => {
