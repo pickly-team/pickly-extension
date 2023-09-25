@@ -22,8 +22,7 @@ export type ActionMapType<M extends { [index: string]: any }> = {
 };
 
 interface User {
-	code?: string;
-	[key: string]: any;
+	code: string;
 }
 
 export type AuthUserType = null | User;
@@ -36,7 +35,8 @@ export type AuthStateType = {
 export type Auth0ContextType = {
 	isInitialized: boolean;
 	user: AuthUserType;
-	logout: () => void;
+	logout: (Function: () => void) => void;
+	login: () => Promise<void>;
 };
 
 enum Types {
@@ -48,7 +48,9 @@ type Payload = {
 	[Types.INITIAL]: {
 		user: AuthUserType;
 	};
-	[Types.LOGOUT]: undefined;
+	[Types.LOGOUT]: {
+		user: null;
+	};
 };
 
 type ActionsType = ActionMapType<Payload>[keyof ActionMapType<Payload>];
@@ -118,10 +120,29 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 	}, []);
 
 	// LOGOUT
-	const logout = useCallback(() => {
+
+	const logout = useCallback((Function: () => void) => {
+		Function();
 		dispatch({
-			type: Types.LOGOUT
+			type: Types.LOGOUT,
+			payload: {
+				user: null
+			}
 		});
+	}, []);
+
+	const login = useCallback(async () => {
+		const code = await getMemberCode();
+		if (code && code.length > 0) {
+			dispatch({
+				type: Types.INITIAL,
+				payload: {
+					user: {
+						code
+					}
+				}
+			});
+		}
 	}, []);
 
 	// INITIALIZE
@@ -133,9 +154,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 		() => ({
 			isInitialized: state.isInitialized,
 			user: state.user,
-			logout
+			logout,
+			login
 		}),
-		[state.isInitialized, state.user, logout]
+		[state.isInitialized, state.user?.code, logout, login]
 	);
 
 	return (
