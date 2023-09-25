@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Category } from "../api/category";
 import { useGETBookmarkTitleQuery } from "../api/title";
 import { usePOSTBookmarkMutation } from "../api/bookmark";
@@ -35,7 +35,7 @@ const useAddBookmark = ({ category }: AddBookmarkProps) => {
 
 	const { isError: isBookmarkError, isFetching: isLoadingGetTitle } =
 		useGETBookmarkTitleQuery({
-			memberId: user?.code ?? "",
+			memberId: user?.code,
 			url,
 			setTitle
 		});
