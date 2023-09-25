@@ -1,6 +1,7 @@
 import { GET_HREF_RESULT } from "@src/pages/content";
 import { useEffect, useState } from "react";
 import { NOT_FOUND_PAGE } from "./useAddBookmark";
+import useToast from "@src/ui/toast/useToast";
 
 interface GetHrefProps {
 	onChangeUrl: (url: string) => void;
@@ -36,6 +37,8 @@ const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
 			});
 	};
 
+	const { fireToast } = useToast();
+
 	useEffect(() => {
 		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 			tabs[0].id &&
@@ -43,6 +46,11 @@ const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
 					if (isReady) {
 						getHref(tabs[0].id, (data) => {
 							if (data.href === "") {
+								fireToast({
+									message:
+										"현재 페이지의 북마크를 가져올 수 없어요 🥲 \n 페이지를 새로고침 해보세요",
+									mode: "ERROR"
+								});
 								onChangeUrl(NOT_FOUND_PAGE);
 								return;
 							}
@@ -66,6 +74,11 @@ const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
 						if (isReady) {
 							getHref(tab?.id, (data) => {
 								if (data.href === "") {
+									fireToast({
+										message:
+											"현재 페이지의 북마크를 가져올 수 없어요 🥲 \n 페이지를 새로고침 해보세요",
+										mode: "ERROR"
+									});
 									onChangeUrl(NOT_FOUND_PAGE);
 									return;
 								}
