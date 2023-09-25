@@ -6,7 +6,7 @@ import { NOT_FOUND_PAGE } from "../hooks/useAddBookmark";
 type GETBookmarkTitleResponse = string;
 
 interface GetBookmarkTitleRequest {
-	memberId: string;
+	memberId: string | undefined;
 	url: string;
 }
 
@@ -23,10 +23,13 @@ const getBookmarkTitleAPI = async ({
 	return data;
 };
 
-const GET_BOOKMARK_TITLE = (url: string) => ["GET_BOOKMARK_TITLE", url];
+export const GET_BOOKMARK_TITLE = (
+	url: string,
+	memberId: string | undefined
+) => ["GET_BOOKMARK_TITLE", url, memberId];
 
 interface GETBookmarkTitleQuery {
-	memberId: string;
+	memberId: string | undefined;
 	url: string;
 	setTitle: (title: string) => void;
 }
@@ -38,10 +41,10 @@ export const useGETBookmarkTitleQuery = ({
 }: GETBookmarkTitleQuery) => {
 	const { fireToast } = useToast();
 	return useQuery(
-		GET_BOOKMARK_TITLE(url),
+		GET_BOOKMARK_TITLE(url, memberId),
 		() => getBookmarkTitleAPI({ memberId, url }),
 		{
-			enabled: !!url.length && !!memberId.length && url !== NOT_FOUND_PAGE,
+			enabled: !!url.length && !!memberId?.length && url !== NOT_FOUND_PAGE,
 			retry: 0,
 			staleTime: 1000 * 60 * 60 * 24,
 			cacheTime: 1000 * 60 * 60 * 24,
