@@ -30,17 +30,18 @@ export interface GETCategoryListQueryRequest {
 	};
 }
 
-const GET_CATEGORY_LIST = (params: GETCategoryListQueryRequest) => [
-	"get",
-	params.memberId
-];
+export const GET_CATEGORY_LIST = (memberId: string) => ["get", memberId];
 
 export const useGETCategoryListQuery = (
 	params: GETCategoryListQueryRequest
 ) => {
-	return useQuery(GET_CATEGORY_LIST(params), () => getCategoryListAPI(params), {
-		enabled: !!params.memberId,
-		cacheTime: 5 * 60 * 1000,
-		staleTime: 5 * 60 * 1000
-	});
+	return useQuery(
+		GET_CATEGORY_LIST(params.memberId),
+		() => getCategoryListAPI(params),
+		{
+			enabled: !!params.memberId,
+			cacheTime: 5 * 60 * 1000,
+			staleTime: 5 * 60 * 1000
+		}
+	);
 };
