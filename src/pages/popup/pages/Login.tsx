@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import LogoImg from "@assets/img/Icon.png";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Button from "../../../ui/Button";
 import { useDeleteMemberCodeMutation } from "../api/auth";
 import { theme } from "@src/utils/theme";
@@ -15,12 +15,13 @@ const Login = () => {
 
 	const { mutate: deleteMemberCode } = useDeleteMemberCodeMutation();
 
-	const onClick_인증하기 = async () => {
+	const onClick_인증하기 = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		deleteMemberCode({ code: code });
 	};
 
 	return (
-		<Wrapper>
+		<Wrapper onSubmit={onClick_인증하기}>
 			<LogoWrapper>
 				<Icon src={LogoImg} alt='logo icon' />
 			</LogoWrapper>
@@ -31,7 +32,7 @@ const Login = () => {
 				<Input height={3} value={code} onChange={onChange} />
 			</InputWrapper>
 			<ButtonWrapper>
-				<Button onClick={onClick_인증하기}>
+				<Button type='submit'>
 					<ButtonText>인증하기</ButtonText>
 				</Button>
 			</ButtonWrapper>
@@ -86,7 +87,7 @@ const ButtonWrapper = styled.div`
 	margin-bottom: 1.3rem;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
 	position: "absolute";
 	background-color: ${theme.colors.black};
 	top: 0;
