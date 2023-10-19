@@ -9,13 +9,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	}
 	if (request.message === "GET_HREF") {
 		(async () => {
-			sendResponse({
-				code: 200,
-				data: {
-					href: window.location.href
-				}
-			});
-			return true;
+			if (request.url && request.url === window.location.href) {
+				sendResponse({
+					code: 200,
+					data: {
+						href: window.location.href
+					}
+				});
+				return true;
+			}
 		})();
 		return true;
 	}
