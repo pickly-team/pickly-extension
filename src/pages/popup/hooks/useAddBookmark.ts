@@ -73,9 +73,11 @@ const useAddBookmark = ({ category }: AddBookmarkProps) => {
 		setSelectedVisibility(visibility);
 	};
 
-	const { mutate: postBookmark } = usePOSTBookmarkMutation();
+	const { mutate: postBookmark, isLoading: isPostBookmarkLoading } =
+		usePOSTBookmarkMutation();
 
 	const onClickPostBookmark = () => {
+		if (isPostBookmarkLoading) return;
 		if (user?.code) {
 			postBookmark({
 				memberId: user.code,
@@ -91,9 +93,10 @@ const useAddBookmark = ({ category }: AddBookmarkProps) => {
 		return (
 			url !== NOT_FOUND_PAGE &&
 			title.length > 0 &&
-			selectedCategory.categoryId !== -1
+			selectedCategory.categoryId !== -1 &&
+			!isPostBookmarkLoading
 		);
-	}, [url, title, selectedCategory]);
+	}, [url, title, selectedCategory, isPostBookmarkLoading]);
 
 	return {
 		url,
