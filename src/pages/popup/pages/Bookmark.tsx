@@ -20,8 +20,10 @@ import getRem from "@src/utils/getRem";
 import IconButton from "@src/ui/IconButton";
 import { css } from "@emotion/react";
 import { AiOutlineClose as CloseIcon } from "react-icons/ai";
+import { BiHelpCircle as HelpIcon } from "react-icons/bi";
 import { useQueryClient } from "@tanstack/react-query";
 import { GET_BOOKMARK_TITLE } from "../api/title";
+import Help from "../components/Help";
 
 const BookmarkPage = () => {
 	const { user } = useAuthContext();
@@ -73,8 +75,31 @@ const BookmarkPage = () => {
 				title='북마크 추가하기'
 				rightButton={
 					<HeaderRightButtonWrapper>
-						<Button onClick={openLogoutBS} height={2} buttonColor='darkPrimary'>
-							<ButtonText fontSize={0.8}>로그아웃</ButtonText>
+						<TriggerBottomSheet>
+							<TriggerBottomSheet.Trigger
+								as={
+									<IconButton
+										// css={css`
+										// 	margin-right: 1rem;
+										// `}
+										onClick={() => {}}
+									>
+										<HelpIcon size={24} />
+									</IconButton>
+								}
+							/>
+							<TriggerBottomSheet.BottomSheet>
+								<Help />
+							</TriggerBottomSheet.BottomSheet>
+						</TriggerBottomSheet>
+						<Button
+							onClick={openLogoutBS}
+							height={2}
+							buttonColor='lightPrimary'
+						>
+							<ButtonText fontSize={0.8} weight='bold'>
+								로그아웃
+							</ButtonText>
 						</Button>
 					</HeaderRightButtonWrapper>
 				}
@@ -191,7 +216,7 @@ const BookmarkPage = () => {
 					onClick={onClickPostBookmark}
 					disabled={isBookmarkError || !isPostEnabled}
 				>
-					<Text.Span>추가하기</Text.Span>
+					<Text.Span weight='bold'>추가하기</Text.Span>
 				</Button>
 			</ButtonWrapper>
 			<BSConfirmation
@@ -230,6 +255,7 @@ const Wrapper = styled.div`
 const HeaderRightButtonWrapper = styled.div`
 	display: flex;
 	column-gap: 0.5rem;
+	align-items: center;
 `;
 
 const ContentWrapper = styled.div`
