@@ -25,16 +25,21 @@ const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
 
 	const getHref = (
 		tabId: number | undefined,
+		url: string,
 		callback: (data: GET_HREF_RESULT) => void
 	) => {
 		tabId &&
-			chrome.tabs.sendMessage(tabId, { message: "GET_HREF" }, (response) => {
-				if (chrome.runtime.lastError) {
-					setTimeout(() => getHref(tabId, callback), 1000);
-				} else {
-					callback(response.data);
+			chrome.tabs.sendMessage(
+				tabId,
+				{ message: "GET_HREF", url },
+				(response) => {
+					if (chrome.runtime.lastError) {
+						setTimeout(() => getHref(tabId, url, callback), 1000);
+					} else {
+						callback(response.data);
+					}
 				}
-			});
+			);
 	};
 
 	const { fireToast } = useToast();
@@ -42,9 +47,10 @@ const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
 	useEffect(() => {
 		chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 			tabs[0].id &&
+				tabs[0].url &&
 				checkIfReceiverIsReady(tabs[0].id, (isReady) => {
 					if (isReady) {
-						getHref(tabs[0].id, (data) => {
+						getHref(tabs[0].id, tabs[0].url ?? "", (data) => {
 							if (data.href === "") {
 								fireToast({
 									message:
@@ -70,9 +76,10 @@ const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
 			tabs.forEach(
 				(tab) =>
 					tab.id &&
+					tab.url &&
 					checkIfReceiverIsReady(tab.id, (isReady) => {
 						if (isReady) {
-							getHref(tab?.id, (data) => {
+							getHref(tab?.id, tab.url ?? "", (data) => {
 								if (data.href === "") {
 									fireToast({
 										message:
