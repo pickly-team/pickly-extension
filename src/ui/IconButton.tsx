@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import getRem from "@src/utils/getRem";
 import { ButtonHTMLAttributes } from "react";
@@ -16,8 +17,11 @@ const IconButton = ({
 }: IconButtonProps) => {
 	return (
 		<StyleButton
+			css={css`
+				width: ${getRem(width)};
+				height: ${getRem(height)};
+			`}
 			{...restProps}
-			style={{ height: getRem(height), width: getRem(width) }}
 		>
 			{children}
 		</StyleButton>
