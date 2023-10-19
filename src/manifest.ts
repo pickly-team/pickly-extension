@@ -35,7 +35,15 @@ const manifest: Manifest.WebExtensionManifest = {
 			resources: ["contentStyle.css", "icon-128.png", "icon-32.png"],
 			matches: []
 		}
-	]
+	],
+	commands: {
+		_execute_action: {
+			suggested_key: {
+				default: "Alt+E",
+				mac: "Command+E"
+			}
+		}
+	}
 };
 
 export default manifest;
