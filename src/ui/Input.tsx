@@ -29,7 +29,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
 		color = "white",
 		backgroundColor = "grey900",
 		border = {
-			borderRadius: 1,
+			borderRadius: 0.5,
 			borderWidth: 0,
 			color: undefined
 		},
