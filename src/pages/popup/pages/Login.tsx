@@ -6,6 +6,7 @@ import Button from "../../../ui/Button";
 import { useDeleteMemberCodeMutation } from "../api/auth";
 import { theme } from "@src/utils/theme";
 import Input from "@src/ui/Input";
+import Text from "@src/ui/Text";
 
 const Login = () => {
 	const [code, setCode] = useState("");
@@ -26,7 +27,12 @@ const Login = () => {
 				<Icon src={LogoImg} alt='logo icon' />
 			</LogoWrapper>
 			<DescriptionWrapper>
-				<Description>5분 이내에 인증번호를 입력해주세요.</Description>
+				<Description fontSize={0.8}>
+					5분 이내에 인증번호를 입력해주세요.
+				</Description>
+				<Description fontSize={0.7}>
+					{"인증번호는 [설정 > 인증코드 발급]에서 확인하실 수 있습니다"}
+				</Description>
 			</DescriptionWrapper>
 			<InputWrapper>
 				<Input height={3} value={code} onChange={onChange} />
@@ -55,16 +61,17 @@ const Icon = styled.img`
 
 const DescriptionWrapper = styled.div`
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	margin-top: 3rem;
+	margin-bottom: 1.3rem;
 	padding: 0 2rem;
+	row-gap: 1rem;
 `;
 
-const Description = styled.span`
-	font-size: 0.8rem;
+const Description = styled(Text.Span)`
 	color: ${theme.colors.white};
-	margin-top: 1.3rem;
-	margin-bottom: 1.3rem;
 `;
 
 const InputWrapper = styled.div`
