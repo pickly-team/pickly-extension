@@ -78,12 +78,7 @@ const BookmarkPage = () => {
 						<TriggerBottomSheet>
 							<TriggerBottomSheet.Trigger
 								as={
-									<IconButton
-										// css={css`
-										// 	margin-right: 1rem;
-										// `}
-										onClick={() => {}}
-									>
+									<IconButton onClick={() => {}}>
 										<HelpIcon size={24} />
 									</IconButton>
 								}
