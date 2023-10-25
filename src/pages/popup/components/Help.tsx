@@ -15,7 +15,7 @@ const Help = () => {
 				</MiddleText>
 				<RowWrapper>
 					<LogoImage src='https://cdn.emojidex.com/emoji/seal/Windows.png' />
-					<MiddleText fontSize={0.9}>{" : Alt + E"}</MiddleText>
+					<MiddleText fontSize={0.9}>{" : Alt + S"}</MiddleText>
 				</RowWrapper>
 				<RowWrapper>
 					<ButtonText

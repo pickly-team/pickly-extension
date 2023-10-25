@@ -39,7 +39,7 @@ const manifest: Manifest.WebExtensionManifest = {
 	commands: {
 		_execute_action: {
 			suggested_key: {
-				default: "Alt+E",
+				default: "Alt+S",
 				mac: "Command+E"
 			}
 		}
