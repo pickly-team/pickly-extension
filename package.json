@@ -10,7 +10,8 @@
 	},
 	"scripts": {
 		"build": "vite build",
-		"dev": "nodemon"
+		"dev": "nodemon",
+		"zip": "rm -rf dist && vite build && zip extension.zip -r ./dist/*"
 	},
 	"type": "module",
 	"dependencies": {
