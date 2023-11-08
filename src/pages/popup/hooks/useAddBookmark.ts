@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { Category } from "../api/category";
-import { useGETBookmarkTitleQuery } from "../api/title";
 import { usePOSTBookmarkMutation } from "../api/bookmark";
 import useAuthContext from "./useAuthContext";
 
@@ -23,25 +22,30 @@ interface AddBookmarkProps {
 	category?: Category[];
 }
 
+interface BookmarkInfo {
+	url: string;
+	title: string;
+	thumbnail: string;
+}
+
 const useAddBookmark = ({ category }: AddBookmarkProps) => {
 	const { user } = useAuthContext();
-	const [url, setUrl] = useState<string>(NOT_FOUND_PAGE);
+	const [bookmarkInfo, setBookmarkInfo] = useState<BookmarkInfo>({
+		url: NOT_FOUND_PAGE,
+		title: "",
+		thumbnail: ""
+	});
 
 	const onChangeUrl = (url: string) => {
-		setUrl(url);
+		setBookmarkInfo((prev) => ({ ...prev, url }));
 	};
 
-	const [title, setTitle] = useState<string>("");
-
-	const { isError: isBookmarkError, isFetching: isLoadingGetTitle } =
-		useGETBookmarkTitleQuery({
-			memberId: user?.code,
-			url,
-			setTitle
-		});
-
 	const onChangeTitle = (title: string) => {
-		setTitle(title);
+		setBookmarkInfo((prev) => ({ ...prev, title }));
+	};
+
+	const onChangeThumbnail = (thumbnail: string) => {
+		setBookmarkInfo((prev) => ({ ...prev, thumbnail }));
 	};
 	// 1. 카테고리 선택
 	const [selectedCategory, setSelectedCategory] = useState<SelectedCategory>({
@@ -82,8 +86,9 @@ const useAddBookmark = ({ category }: AddBookmarkProps) => {
 			postBookmark({
 				memberId: user.code,
 				categoryId: selectedCategory.categoryId,
-				url,
-				title,
+				url: bookmarkInfo.url,
+				title: bookmarkInfo.title,
+				thumbnail: bookmarkInfo.thumbnail,
 				visibility: TEMP_VISIBILITY[selectedVisibility]
 			});
 		}
@@ -91,24 +96,24 @@ const useAddBookmark = ({ category }: AddBookmarkProps) => {
 
 	const isPostEnabled = useMemo(() => {
 		return (
-			url !== NOT_FOUND_PAGE &&
-			title.length > 0 &&
+			bookmarkInfo.url !== NOT_FOUND_PAGE &&
+			bookmarkInfo.title.length > 0 &&
 			selectedCategory.categoryId !== -1 &&
 			!isPostBookmarkLoading
 		);
-	}, [url, title, selectedCategory, isPostBookmarkLoading]);
+	}, [bookmarkInfo, selectedCategory, isPostBookmarkLoading]);
 
 	return {
-		url,
-		title,
+		url: bookmarkInfo.url,
+		title: bookmarkInfo.title,
+		thumbnail: bookmarkInfo.thumbnail,
 		selectedCategory,
 		visibilityList,
 		selectedVisibility,
-		isBookmarkError,
-		isLoadingGetTitle,
 		isPostEnabled,
 		onChangeUrl,
 		onChangeTitle,
+		onChangeThumbnail,
 		onChangeCategory,
 		onChangeVisibility,
 		onClickPostBookmark

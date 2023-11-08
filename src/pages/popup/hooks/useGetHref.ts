@@ -5,9 +5,15 @@ import useToast from "@src/ui/toast/useToast";
 
 interface GetHrefProps {
 	onChangeUrl: (url: string) => void;
+	onChangeTitle: (title: string) => void;
+	onChangeThumbnail: (thumbnail: string) => void;
 }
 
-const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
+const useGetHref = ({
+	onChangeUrl,
+	onChangeTitle,
+	onChangeThumbnail
+}: GetHrefProps) => {
 	const [loading, setLoading] = useState(true);
 	const checkIfReceiverIsReady = (
 		tabId: number,
@@ -61,6 +67,8 @@ const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
 								return;
 							}
 							onChangeUrl(data.href);
+							onChangeTitle(data.title);
+							onChangeThumbnail(data.thumbnail);
 						});
 						setTimeout(() => {
 							setLoading(false);
@@ -90,6 +98,8 @@ const useGetHref = ({ onChangeUrl }: GetHrefProps) => {
 									return;
 								}
 								onChangeUrl(data.href);
+								onChangeTitle(data.title);
+								onChangeThumbnail(data.thumbnail);
 							});
 							setTimeout(() => {
 								setLoading(false);
