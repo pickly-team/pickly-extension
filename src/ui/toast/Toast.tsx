@@ -16,7 +16,7 @@ interface ToastProps {
 const icon: Record<ToastMode, React.ReactNode> = {
 	SUCCESS: <SuccessIcon color={theme.colors.white} />,
 	DELETE: <CloseIcon color={theme.colors.white} />,
-	ERROR: <ErrorIcon color={theme.colors.black} />
+	ERROR: <ErrorIcon color={theme.colors.yellow} />
 } as const;
 
 const modeColor: Record<ToastMode, string> = {
