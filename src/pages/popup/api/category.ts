@@ -1,3 +1,4 @@
+import useToast from "@src/ui/toast/useToast";
 import client from "@src/utils/client";
 import { useQuery } from "@tanstack/react-query";
 
@@ -35,10 +36,22 @@ export const GET_CATEGORY_LIST = (memberId: string) => ["get", memberId];
 export const useGETCategoryListQuery = (
 	params: GETCategoryListQueryRequest
 ) => {
+	const { fireToast } = useToast();
 	return useQuery(
 		GET_CATEGORY_LIST(params.memberId),
 		() => getCategoryListAPI(params),
 		{
+			onSuccess: (data) => {
+				if (data.length === 0) {
+					fireToast({
+						message: "현재 사용할 수 있는 카테고리가 없어요 😥",
+						mode: "ERROR"
+					});
+					setTimeout(() => {
+						window.close();
+					}, 1000);
+				}
+			},
 			enabled: !!params.memberId,
 			cacheTime: 5 * 60 * 1000,
 			staleTime: 5 * 60 * 1000
