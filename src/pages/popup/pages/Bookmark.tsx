@@ -15,7 +15,6 @@ import useBottomSheet from "@src/ui/BottomSheet/useBottomSheet";
 import { resetMemberCode } from "../auth/store/auth";
 import useToast from "@src/ui/toast/useToast";
 import { useNavigate } from "react-router-dom";
-import { Oval } from "react-loader-spinner";
 import getRem from "@src/utils/getRem";
 import IconButton from "@src/ui/IconButton";
 import { css } from "@emotion/react";
