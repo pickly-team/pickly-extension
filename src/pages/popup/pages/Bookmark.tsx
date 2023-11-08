@@ -38,17 +38,16 @@ const BookmarkPage = () => {
 		selectedCategory,
 		visibilityList,
 		selectedVisibility,
-		isBookmarkError,
-		isLoadingGetTitle,
 		isPostEnabled,
 		onChangeUrl,
 		onChangeTitle,
+		onChangeThumbnail,
 		onChangeCategory,
 		onChangeVisibility,
 		onClickPostBookmark
 	} = useAddBookmark({ category: categoryList });
 
-	useGetHref({ onChangeUrl });
+	useGetHref({ onChangeUrl, onChangeTitle, onChangeThumbnail });
 
 	const {
 		isOpen: logoutBSOpen,
@@ -61,7 +60,7 @@ const BookmarkPage = () => {
 	const { fireToast } = useToast();
 	const queryClient = useQueryClient();
 	const onClickLogout = () => {
-		queryClient.removeQueries(GET_BOOKMARK_TITLE(url, user?.code ?? ""));
+		queryClient.removeQueries(GET_BOOKMARK_TITLE(url));
 		queryClient.removeQueries(GET_CATEGORY_LIST(user?.code ?? ""));
 		resetMemberCode();
 		fireToast({ message: "로그아웃 되었습니다" });
@@ -113,39 +112,24 @@ const BookmarkPage = () => {
 				</Title>
 				<InputWrapper>
 					<StyledInputCloseWrapper>
-						{isLoadingGetTitle ? (
-							<StyledLoadingInput>
-								<Oval
-									height={25}
-									width={25}
-									color={theme.colors.lightPrimary}
-									visible={true}
-									ariaLabel='oval-loading'
-									secondaryColor={theme.colors.lightPrimary}
-									strokeWidth={4}
-									strokeWidthSecondary={4}
-								/>
-							</StyledLoadingInput>
-						) : (
-							<>
-								<StyledInput
-									css={css`
-										transition: all 0.5s ease-in-out;
-									`}
-									value={title}
-									onChange={(e) => onChangeTitle(e.target.value)}
-									maxLength={100}
-									height={3}
-								/>
-								<FixedIconWrapper>
-									{!!title.length && (
-										<IconButton onClick={() => onChangeTitle("")}>
-											<CloseIcon size={20} />
-										</IconButton>
-									)}
-								</FixedIconWrapper>
-							</>
-						)}
+						<>
+							<StyledInput
+								css={css`
+									transition: all 0.5s ease-in-out;
+								`}
+								value={title}
+								onChange={(e) => onChangeTitle(e.target.value)}
+								maxLength={100}
+								height={3}
+							/>
+							<FixedIconWrapper>
+								{!!title.length && (
+									<IconButton onClick={() => onChangeTitle("")}>
+										<CloseIcon size={20} />
+									</IconButton>
+								)}
+							</FixedIconWrapper>
+						</>
 					</StyledInputCloseWrapper>
 				</InputWrapper>
 			</ContentWrapper>
@@ -207,10 +191,7 @@ const BookmarkPage = () => {
 				</TriggerBottomSheet>
 			</ContentWrapper>
 			<ButtonWrapper>
-				<Button
-					onClick={onClickPostBookmark}
-					disabled={isBookmarkError || !isPostEnabled}
-				>
+				<Button onClick={onClickPostBookmark} disabled={!isPostEnabled}>
 					<Text.Span weight='bold'>추가하기</Text.Span>
 				</Button>
 			</ButtonWrapper>

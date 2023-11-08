@@ -8,6 +8,7 @@ interface POSTBookmarkRequest {
 	categoryId: number;
 	url: string;
 	title: string;
+	thumbnail: string;
 	visibility: Visibility;
 }
 

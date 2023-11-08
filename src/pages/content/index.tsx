@@ -1,5 +1,7 @@
 export interface GET_HREF_RESULT {
 	href: string;
+	title: string;
+	thumbnail: string;
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -13,7 +15,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 				sendResponse({
 					code: 200,
 					data: {
-						href: window.location.href
+						href: window.location.href,
+						title: document.title,
+						thumbnail:
+							document
+								.querySelector("meta[property='og:image']")
+								?.getAttribute("content") ?? ""
 					}
 				});
 				return true;
