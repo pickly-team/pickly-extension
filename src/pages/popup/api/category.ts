@@ -47,9 +47,6 @@ export const useGETCategoryListQuery = (
 						message: "현재 사용할 수 있는 카테고리가 없어요 😥",
 						mode: "ERROR"
 					});
-					setTimeout(() => {
-						window.close();
-					}, 1000);
 				}
 			},
 			enabled: !!params.memberId,
