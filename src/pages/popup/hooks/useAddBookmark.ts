@@ -3,7 +3,7 @@ import { Category } from "../api/category";
 import { usePOSTBookmarkMutation } from "../api/bookmark";
 import useAuthContext from "./useAuthContext";
 
-interface SelectedCategory {
+export interface SelectedCategory {
 	categoryId: number;
 	item: string;
 }
@@ -50,7 +50,7 @@ const useAddBookmark = ({ category }: AddBookmarkProps) => {
 	// 1. 카테고리 선택
 	const [selectedCategory, setSelectedCategory] = useState<SelectedCategory>({
 		categoryId: -1,
-		item: "🐶 전체"
+		item: "사용 가능한 카테고리가 없어요 😥"
 	});
 
 	const onChangeCategory = (categoryId: number, item: string) => {
