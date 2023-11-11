@@ -1,12 +1,14 @@
 import { ThemeProvider } from "@emotion/react";
-import Login from "./pages/Login";
-import { theme } from "@src/utils/theme";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Routes, Route, MemoryRouter } from "react-router-dom";
-import BookmarkPage from "./pages/Bookmark";
-import AuthProvider from "./context/AuthContext";
 import GlobalStyle from "@src/ui/GlobalStyle";
 import ToastList from "@src/ui/toast/ToastList";
+import { theme } from "@src/utils/theme";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import AuthProvider from "./context/AuthContext";
+import AddBookmarkPage from "./pages/AddBookmarkPage";
+import BookmarkPage from "./pages/Bookmark";
+import CategoryAddPage from "./pages/CategoryAddPage";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
@@ -19,8 +21,13 @@ export default function Popup(): JSX.Element {
 				<AuthProvider>
 					<ThemeProvider theme={theme}>
 						<Routes>
-							<Route path='/' element={<BookmarkPage />} />
+							<Route path='/' element={<AddBookmarkPage />} />
 							<Route path='/login' element={<Login />} />
+							<Route path='/bookmark' element={<BookmarkPage />} />
+							<Route
+								path='/category/add'
+								element={<CategoryAddPage mode='ADD' />}
+							/>
 						</Routes>
 					</ThemeProvider>
 				</AuthProvider>
