@@ -14,12 +14,7 @@ const Drawer = ({ isOpen, onClose, children }: DrawerProps) => {
 	return (
 		<>
 			<Overlay isOpen={isOpen} onClick={onClose} />
-			<DrawerContainer
-				isOpen={isOpen}
-				css={css`
-					width: ${document.body.clientWidth * 0.8}px;
-				`}
-			>
+			<DrawerContainer isOpen={isOpen}>
 				<div
 					css={css`
 						display: flex;
@@ -44,13 +39,14 @@ const DrawerContainer = styled.div<{ isOpen: boolean }>`
 	top: 0;
 	left: 0;
 	height: 100%;
+	width: 80vw;
 	background-color: ${theme.colors.grey900};
 	box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
 	transform: translateX(${(props) => (props.isOpen ? 0 : -100)}%);
 	transition: transform 0.3s ease-in-out;
 	display: flex;
 	flex-direction: column;
-	z-index: 2;
+	z-index: 3;
 `;
 
 const Overlay = styled.div<{ isOpen: boolean }>`
@@ -63,4 +59,6 @@ const Overlay = styled.div<{ isOpen: boolean }>`
 	visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
 	opacity: ${(props) => (props.isOpen ? 1 : 0)};
 	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+	z-index: 2;
+	cursor: pointer;
 `;
