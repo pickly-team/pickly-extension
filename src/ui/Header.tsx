@@ -10,6 +10,7 @@ import Text from "./Text";
 interface HeaderProps {
 	showBackButton?: boolean;
 	title?: string;
+	leftButton?: ReactNode;
 	rightButton?: ReactNode;
 	backButtonCallback?: () => void;
 }
@@ -17,6 +18,7 @@ interface HeaderProps {
 const Header = ({
 	showBackButton = false,
 	title,
+	leftButton,
 	rightButton,
 	backButtonCallback
 }: HeaderProps) => {
@@ -35,6 +37,7 @@ const Header = ({
 						onClick={onClickBackButton}
 					/>
 				)}
+				{leftButton && leftButton}
 				{title && (
 					<Text.Div fontSize={getRem(20)} weight='bold'>
 						{title}
@@ -59,7 +62,7 @@ const HeaderContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	z-index: 1000;
+	z-index: 1;
 `;
 
 const BackButtonAndTitleWrapper = styled.div`
