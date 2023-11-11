@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-	BottomSheet as SpringBottomSheet,
-	BottomSheetRef
+	BottomSheetRef,
+	BottomSheet as SpringBottomSheet
 } from "react-spring-bottom-sheet";
 
-import "./style.module.css";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import "./style.module.css";
 
 export interface BottomSheetProps {
 	children: React.ReactNode;
@@ -50,10 +51,9 @@ const BottomSheet = ({
 					onDismiss={onClose}
 					skipInitialTransition
 					ref={ref}
-					// snapPoints={({ minHeight, maxHeight }) => [
-					//   minHeight,
-					//   maxHeight * (bsMaxHeight / 100),
-					// ]}
+					css={css`
+						z-index: 9999;
+					`}
 				>
 					{children}
 				</SpringBottomSheet>
@@ -72,4 +72,5 @@ const Background = styled.div<{ visible: boolean }>`
 	position: absolute;
 	right: 0px;
 	top: 0px;
+	z-index: 9999;
 `;
