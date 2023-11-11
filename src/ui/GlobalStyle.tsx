@@ -109,7 +109,7 @@ const GlobalStyle = () => (
 				font-family: "NanumSquareRoundR", "NanumSquareRoundB", sans-serif;
 				vertical-align: baseline;
 				box-sizing: border-box;
-				-webkit-tap-highlight-color: transparent;
+				/* -webkit-tap-highlight-color: transparent;
 				-webkit-user-select: none;
 				-khtml-user-select: none;
 				-moz-user-select: none;
@@ -119,7 +119,7 @@ const GlobalStyle = () => (
 				-khtml-user-drag: none;
 				-moz-user-drag: none;
 				-o-user-drag: none;
-				user-drag: none;
+				user-drag: none; */
 			}
 			html {
 				background-color: ${theme.colors.black};
@@ -127,7 +127,8 @@ const GlobalStyle = () => (
 			body {
 				-ms-overflow-style: none !important; /* IE and Edge */
 				scrollbar-width: none !important; /* Firefox */
-				overflow: hidden;
+				height: auto;
+				/* overflow: hidden; */
 			}
 			li,
 			ol,
