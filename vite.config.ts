@@ -1,11 +1,11 @@
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
-import { defineConfig, loadEnv } from "vite";
-import makeManifest from "./utils/plugins/make-manifest";
-import buildContentScript from "./utils/plugins/build-content-script";
-import { outputFolderName } from "./utils/constants";
-import svgr from "vite-plugin-svgr";
 import { PreRenderedChunk } from "rollup";
+import { defineConfig, loadEnv } from "vite";
+import svgr from "vite-plugin-svgr";
+import { outputFolderName } from "./utils/constants";
+import buildContentScript from "./utils/plugins/build-content-script";
+import makeManifest from "./utils/plugins/make-manifest";
 
 const root = resolve(__dirname, "src");
 const pagesDir = resolve(root, "pages");
@@ -54,7 +54,8 @@ export default defineConfig(({ mode }) => {
 			define: {
 				"process.env": env,
 				"process.env.NODE_ENV": JSON.stringify(mode),
-				"process.env.VITE_SERVER_URI": JSON.stringify(env.VITE_SERVER_URI)
+				"process.env.VITE_SERVER_URI": JSON.stringify(env.VITE_SERVER_URI),
+				"process.env.VITE_ASSETS_URL": JSON.stringify(env.VITE_ASSETS_URL)
 			}
 		}
 	};
