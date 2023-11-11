@@ -74,4 +74,5 @@ export default BookmarkPage;
 
 const LMiddle = styled.div`
 	padding-bottom: 5rem;
+	width: 100vw;
 `;

@@ -108,6 +108,7 @@ const Wrapper = styled.form`
 	text-align: center;
 
 	overflow: auto;
+	height: 100%;
 	&::-webkit-scrollbar {
 		width: 10px;
 	}

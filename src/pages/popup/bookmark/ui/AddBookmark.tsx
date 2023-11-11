@@ -19,8 +19,12 @@ interface AddBookmarkProps {
 }
 
 const AddBookmark = ({ children }: AddBookmarkProps) => {
-	return <>{children}</>;
+	return <Wrapper>{children}</Wrapper>;
 };
+
+const Wrapper = styled.div`
+	margin-bottom: 5rem;
+`;
 
 const ContentWrapper = styled.div`
 	display: flex;

@@ -30,7 +30,7 @@ const BookmarkItem = ({
 	categoryEmoji
 }: BookmarkItemType) => {
 	const onImageError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
-		// e.currentTarget.src = process.env.VITE_ASSETS_URL + "/main.webp";
+		e.currentTarget.src = import.meta.env.VITE_ASSETS_URL + "/main.webp";
 		e.currentTarget.setAttribute("style", "object-fit: contain");
 	};
 
@@ -110,6 +110,7 @@ interface LinkWrapperProps {
 const LinkWrapper = styled(NavLink)<LinkWrapperProps>`
 	display: block;
 	padding: ${getRem(15, 20)};
+	width: 100%;
 
 	transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 
@@ -172,6 +173,8 @@ const EllipsisText = styled(Text.Span)`
 
 const ItemUpperRight = styled.div`
 	height: 100%;
+	display: flex;
+	flex-shrink: 0;
 `;
 
 const Thumbnail = styled(LazyLoadImage)`
