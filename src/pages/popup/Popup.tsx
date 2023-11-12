@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import AuthProvider from "./context/AuthContext";
 import AddBookmarkPage from "./pages/AddBookmarkPage";
-import BookmarkPage from "./pages/Bookmark";
+import BookmarkPage from "./pages/BookmarkPage";
 import BookmarkSearchPage from "./pages/BookmarkSearchPage";
 import CategoryAddPage from "./pages/CategoryAddPage";
 import Login from "./pages/Login";
