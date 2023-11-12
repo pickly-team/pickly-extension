@@ -4,6 +4,7 @@ import Text from "@src/ui/Text";
 import Select from "@src/ui/common/Select";
 import getRem from "@src/utils/getRem";
 import { theme } from "@src/utils/theme";
+import { AiOutlineSearch as SearchIcon } from "react-icons/ai";
 import { READ_OPTION } from "../service/hooks/useReadList";
 
 export type ReadType = {
@@ -177,9 +178,32 @@ const ToggleEdit = ({ isEdit, onClickEdit }: ToggleEditProps) => {
 	);
 };
 
+interface SearchProps {
+	onClickSearch: () => void;
+}
+
+const Search = ({ onClickSearch }: SearchProps) => {
+	return (
+		<ButtonWrapper>
+			<Button
+				buttonColor='black'
+				height={2.5}
+				style={{
+					border: `2px solid ${theme.colors.lightPrimary}`,
+					borderRadius: "0.8rem"
+				}}
+				onClick={onClickSearch}
+			>
+				<SearchIcon size={20} color={theme.colors.lightPrimary} />
+			</Button>
+		</ButtonWrapper>
+	);
+};
+
 BookmarkToggle.SelectCategory = SelectCategory;
 BookmarkToggle.SelectReadMode = SelectReadMode;
 BookmarkToggle.ToggleEdit = ToggleEdit;
+BookmarkToggle.Search = Search;
 
 export default BookmarkToggle;
 
