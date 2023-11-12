@@ -59,7 +59,6 @@ const GETBookMarkList = {
 		};
 	},
 	Mapper: (bookmarkList: BookmarkItemType[]): bookmarkGETBookMarkList => {
-		console.log(process.env.VITE_ASSETS_URL);
 		return bookmarkList.map((bookmark) => ({
 			bookmarkId: bookmark.bookmarkId,
 			title: bookmark.title,
