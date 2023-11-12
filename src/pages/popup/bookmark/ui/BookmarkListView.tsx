@@ -71,7 +71,10 @@ interface BookmarkListProps {
 	renderItem: (item: BookmarkItemType) => JSX.Element;
 }
 
-const BookmarkList = ({ bookmarkList, renderItem }: BookmarkListProps) => {
+export const BookmarkList = ({
+	bookmarkList,
+	renderItem
+}: BookmarkListProps) => {
 	return (
 		<>
 			{bookmarkList.map((bookmark) => {

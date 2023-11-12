@@ -6,6 +6,7 @@ import IconButton from "@src/ui/IconButton";
 import SkeletonWrapper from "@src/ui/common/SkeletonWrapper";
 import { Suspense } from "react";
 import { FiMenu as MenuIcon } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import useCategory from "../bookmark/service/hooks/useCategory";
 import useReadList from "../bookmark/service/hooks/useReadList";
 import BookmarkDrawer from "../bookmark/ui/BookmarkDrawer";
@@ -16,6 +17,8 @@ import useAuthContext from "../hooks/useAuthContext";
 
 const BookmarkPage = () => {
 	const { user } = useAuthContext();
+	const navigate = useNavigate();
+
 	const { selectedCategoryId, categoryOptions, onChangeCategory } = useCategory(
 		{
 			memberId: user?.code ?? ""
@@ -26,6 +29,10 @@ const BookmarkPage = () => {
 		useReadList();
 
 	const { open, openDrawer, closeDrawer } = useDrawer();
+
+	const onClickSearch = () => {
+		navigate("/bookmark/search");
+	};
 
 	return (
 		<>
@@ -48,6 +55,7 @@ const BookmarkPage = () => {
 					readOptions={readSelectOptionsList}
 					onChangeRead={onClickReadMode}
 				/>
+				<BookmarkToggle.Search onClickSearch={onClickSearch} />
 			</BookmarkToggle>
 			<LMiddle>
 				<Suspense

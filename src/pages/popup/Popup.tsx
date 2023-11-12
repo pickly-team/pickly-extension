@@ -7,6 +7,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import AuthProvider from "./context/AuthContext";
 import AddBookmarkPage from "./pages/AddBookmarkPage";
 import BookmarkPage from "./pages/Bookmark";
+import BookmarkSearchPage from "./pages/BookmarkSearchPage";
 import CategoryAddPage from "./pages/CategoryAddPage";
 import Login from "./pages/Login";
 
@@ -24,6 +25,7 @@ export default function Popup(): JSX.Element {
 							<Route path='/' element={<AddBookmarkPage />} />
 							<Route path='/login' element={<Login />} />
 							<Route path='/bookmark' element={<BookmarkPage />} />
+							<Route path='/bookmark/search' element={<BookmarkSearchPage />} />
 							<Route
 								path='/category/add'
 								element={<CategoryAddPage mode='ADD' />}
