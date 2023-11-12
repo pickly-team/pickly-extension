@@ -157,7 +157,6 @@ const GETBookSearchMarkList = {
 				}
 			}
 		);
-		console.log(data);
 		return {
 			hasNext: data.hasNext,
 			contents: GETBookMarkList.Mapper(data.contents)

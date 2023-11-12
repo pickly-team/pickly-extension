@@ -13,8 +13,6 @@ interface BookmarkSearchListProps {
 const BookmarkSearchList = ({ keyword }: BookmarkSearchListProps) => {
 	const { user } = useAuthContext();
 
-	console.log(keyword);
-
 	const {
 		data: bookmarkList,
 		fetchNextPage,
@@ -23,8 +21,6 @@ const BookmarkSearchList = ({ keyword }: BookmarkSearchListProps) => {
 		memberId: user?.code ?? "",
 		keyword
 	});
-
-	console.log(bookmarkList);
 
 	const flatBookMarkList = bookmarkList?.pages.flatMap((page) => page.contents);
 
