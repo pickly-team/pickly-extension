@@ -14,11 +14,10 @@ import {
 	TbMessageCircle2 as MessageIcon
 } from "react-icons/tb";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { NavLink } from "react-router-dom";
 import { BookmarkItemType } from "../service/api/bookmark";
 
 const BookmarkItem = ({
-	bookmarkId,
+	url,
 	commentCnt,
 	createdDate,
 	isUserLike,
@@ -34,11 +33,15 @@ const BookmarkItem = ({
 		e.currentTarget.setAttribute("style", "object-fit: contain");
 	};
 
+	const onClickItem = () => {
+		chrome.tabs.create({ url });
+	};
+
 	return (
 		<LinkWrapper
-			to={`/bookmark/${bookmarkId}`}
 			onClick={(e) => {
 				if (disabled) e.preventDefault();
+				else onClickItem();
 			}}
 			disabled={disabled}
 		>
@@ -107,16 +110,13 @@ interface LinkWrapperProps {
 	disabled?: boolean;
 }
 
-const LinkWrapper = styled(NavLink)<LinkWrapperProps>`
+const LinkWrapper = styled.div<LinkWrapperProps>`
 	display: block;
 	padding: ${getRem(15, 20)};
 	width: 100%;
-
 	transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
-
 	border: ${(props) =>
 		props.disabled ? `1px solid ${theme.colors.grey800}` : "none"};
-
 	border-bottom: 1px solid ${theme.colors.grey800};
 	height: 100%;
 
