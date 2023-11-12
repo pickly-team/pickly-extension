@@ -5,6 +5,7 @@ import { theme } from "@src/utils/theme";
 import { ReactNode } from "react";
 
 import { IoArrowBack } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import Text from "./Text";
 
 interface HeaderProps {
@@ -22,9 +23,9 @@ const Header = ({
 	rightButton,
 	backButtonCallback
 }: HeaderProps) => {
+	const navigate = useNavigate();
 	const onClickBackButton = () => {
-		window.history.back();
-
+		navigate(-1);
 		backButtonCallback && backButtonCallback();
 	};
 	return (
