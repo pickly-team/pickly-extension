@@ -1,7 +1,7 @@
 {
 	"name": "pickly-web-extension",
 	"displayName": "Pickly",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Pickly web extension",
 	"license": "MIT",
 	"repository": {
